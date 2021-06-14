@@ -7,7 +7,7 @@ const resolvers =
             return topicsData
         },
         diagramInfo:  (_,{topicIds},{dataSources}) => {
-            // const diagramInfoData = await dataSources.topicAPI.diagramInfo(contains,limit);
+            // const diagramInfoData = await dataSources.topicAPI.diagramInfo(topicIds);
             const data = [{
                 "sets": ["1"],
                 "size": 10,
@@ -24,6 +24,29 @@ const resolvers =
                 "label":"Minimumbezoldiging & Nettoloon"
             }]
             return data
+        },
+        search:  (_,{topicIds,limit},{dataSources}) => {
+           // const searchData = await dataSources.docAPI.searchDocs(topicIds,limit);
+            const data = [
+                {
+                  "id": "60c74659ed1b399303c87f86",
+                  "title": "ad amet non Lorem do occaecat",
+                  "topics": ["991","1177","170"]
+                },
+                {
+                    "id": "60c74659ed1b399303c8xxx",
+                    "title": "ad amet non Lorem do occaecat",
+                    "topics": ["1944","55","1584"]
+                  }
+
+                ]
+            return data
+        },
+    },
+    SearchResult: {
+        topics: async ({topics},__,{dataSources}) => {
+            const topicsData = await dataSources.topicAPI.getTopics(topics);
+            return topicsData
         }
     }
 }

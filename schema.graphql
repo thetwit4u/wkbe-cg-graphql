@@ -12,6 +12,7 @@ directive @cacheControl (
 type Query {
     topics(contains: String!,limit:Int = 10): [Topic]
     diagramInfo(topicIds:[String!]!): [DiagramInfoSet]
+    search(topicIds:[String!]!,limit:Int = 50): [SearchResult]
 }
 
 type Topic  @cacheControl(maxAge: 30){
@@ -21,7 +22,13 @@ type Topic  @cacheControl(maxAge: 30){
 }
 
 type DiagramInfoSet @cacheControl(maxAge: 30){ 
- sets: [String],
- size: Int,
+ sets: [String]
+ size: Int
  label: String
+}
+
+type SearchResult @cacheControl(maxAge: 30){ 
+    id: String!
+    title: String
+    topics: [Topic]
 }

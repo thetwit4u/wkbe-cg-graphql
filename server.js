@@ -6,6 +6,7 @@ const app = express();
 
 const { makeExecutableSchema } = require('graphql-tools');
 const TopicAPI = require('./datasources/topic')
+const DocAPI = require('./datasources/doc')
 const resolvers = require('./resolvers');
 
 
@@ -22,6 +23,7 @@ const schema = makeExecutableSchema({
     schema: schema,
     dataSources: () => ({
         topicAPI: new TopicAPI(),
+        DocAPI: new DocAPI()
       }),
     cacheControl: {
       defaultMaxAge: 10, // 5 seconds

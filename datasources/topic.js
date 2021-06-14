@@ -10,7 +10,15 @@ class TopicAPI extends RESTDataSource {
     const data = await this.get(`topics?label_like=${q}&_limit=${limit}&_sort=path&_order=asc`);
     return data
   }
-
+  async getTopics(ids) {
+    const searchStr = ids.join('&id=')
+    const data = await this.get(`topics?id=${searchStr}`);
+    return data
+  }
+  // async diagramInfo(topicIds) {
+  //   const data = await this.get(`topics?label_like=${q}&_limit=${limit}&_sort=path&_order=asc`);
+  //   return data
+  // }
 }
 
 
