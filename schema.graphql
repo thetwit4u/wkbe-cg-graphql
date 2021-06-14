@@ -1,0 +1,9 @@
+  type Query {
+    topics(contains: String!): [Topic]
+  }
+
+  type Topic {
+      id: String!
+      path: String
+      label: String
+  }
