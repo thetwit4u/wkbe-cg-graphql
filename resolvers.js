@@ -1,12 +1,11 @@
+
 const resolvers = 
 {
     Query: {
-        topics: () => {
-        return [
-            {"id":1097,"path":"Oprichting / Oprichting van vennootschap / Oprichting via fusie","label":"Oprichting via fusie"},
-            {"id":1098,"path":"Kost / Kost eigen aan de werkgever / Verplaatsingskost woon-werkverkeer","label":"Verplaatsingskost woon-werkverkeer"} 
-        ];
-        },
+        topics: async (_,{contains,limit},{dataSources}) => {
+            const topicsData = await dataSources.topicAPI.searchTopics(contains,limit);
+            return topicsData
+        }
     }
 }
 

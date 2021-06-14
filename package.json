@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "axios": "^0.21.1",
+    "apollo-datasource-rest": "^0.14.0",
+    "apollo-server": "^2.25.1",
     "express": "^4.17.1",
-    "express-graphql": "^0.12.0",
     "graphql": "^15.5.0",
     "graphql-tools": "^7.0.5"
   },

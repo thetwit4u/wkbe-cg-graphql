@@ -1,5 +1,5 @@
   type Query {
-    topics(contains: String!): [Topic]
+    topics(contains: String!,limit:Int = 10): [Topic]
   }
 
   type Topic {
