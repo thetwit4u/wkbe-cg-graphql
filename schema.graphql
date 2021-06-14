@@ -1,9 +1,20 @@
-  type Query {
-    topics(contains: String!,limit:Int = 10): [Topic]
-  }
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
 
-  type Topic {
-      id: String!
-      path: String
-      label: String
-  }
+directive @cacheControl (
+  maxAge: Int
+  scope: CacheControlScope
+) on FIELD_DEFINITION | OBJECT | INTERFACE
+
+  
+type Query {
+    topics(contains: String!,limit:Int = 10): [Topic]
+}
+
+type Topic  @cacheControl(maxAge: 30){
+    id: String!
+    path: String
+    label: String
+}

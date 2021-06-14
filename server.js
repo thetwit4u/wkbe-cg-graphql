@@ -1,5 +1,8 @@
-const { ApolloServer, gql } = require('apollo-server');
+const express = require('express');
+const { ApolloServer, gql } = require('apollo-server-express');
+const responseCachePlugin = require('apollo-server-plugin-response-cache');
 const { readFileSync } = require('fs')
+const app = express();
 
 const { makeExecutableSchema } = require('graphql-tools');
 const TopicAPI = require('./datasources/topic')
@@ -19,12 +22,16 @@ const schema = makeExecutableSchema({
     schema: schema,
     dataSources: () => ({
         topicAPI: new TopicAPI(),
-      })
+      }),
+    cacheControl: {
+      defaultMaxAge: 10, // 5 seconds
+    },
+    plugins: [responseCachePlugin()],
   })
-  
-  server.listen({port:PORT}).then(({ url }) => {
-    console.log(`Server ready at ${url}.`)
-  })
- 
 
-console.log(`Running a GraphQL API server at http://localhost:${PORT}/graphql`);
+  server.applyMiddleware({ app });
+  
+  app.listen({ port: PORT }, () =>
+  console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
+)
+ 
