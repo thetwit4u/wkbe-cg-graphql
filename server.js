@@ -7,14 +7,24 @@ const PORT = process.env.PORT||4000
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
   type Query {
-    hello: String
+    topics(contains: String!): [Topic]
   }
+
+  type Topic {
+      id: String!
+      path: String
+      label: String
+  }
+
 `);
  
 // The root provides a resolver function for each API endpoint
 const root = {
-  hello: () => {
-    return 'Hello world!';
+  topics: () => {
+    return [
+        {"id":1097,"path":"Oprichting / Oprichting van vennootschap / Oprichting via fusie","label":"Oprichting via fusie"},
+        {"id":1098,"path":"Kost / Kost eigen aan de werkgever / Verplaatsingskost woon-werkverkeer","label":"Verplaatsingskost woon-werkverkeer"} 
+    ];
   },
 };
  
