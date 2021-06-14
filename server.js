@@ -26,12 +26,14 @@ const schema = makeExecutableSchema({
     cacheControl: {
       defaultMaxAge: 10, // 5 seconds
     },
+    introspection: true,
+    playground: true,
     plugins: [responseCachePlugin()],
   })
 
   server.applyMiddleware({ app });
   
-  app.listen({ port: PORT }, () =>
+  app.listen({port: PORT}, () =>
   console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`)
 )
  
