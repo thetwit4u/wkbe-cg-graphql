@@ -57,10 +57,13 @@ const resolvers =
                 const hint = `${topicLabels.join(' + ')} (${count})`
                 const label = alphaCom[idx].join(' + ')
                 const sets = alphaCom[idx]
+                let percent = Math.ceil((count / maxCount) * 100)
+                if ((percent < 10) && percent > 0) {percent=10}
+
                 const set = 
                     {
                         sets: sets,
-                        size: Math.ceil((count / maxCount) * 100),
+                        size: percent,
                         label: label,
                         hint: hint 
                     }

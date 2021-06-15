@@ -23,3 +23,4 @@ class TopicAPI extends RESTDataSource {
 
 
 module.exports = TopicAPI;
+
