@@ -34,7 +34,7 @@ const resolvers =
             return (topicsData.length > 0)? topicsData[0] : null
         },
         document: async (_,{id},{dataSources}) => {
-            const data = await dataSources.docAPI.getDoc(id);
+            const data = await dataSources.searchEngineAPI.getDoc(id);
             return data
         },
         diagramInfo: async (_,{topicIds},{dataSources}) => {
@@ -76,7 +76,7 @@ const resolvers =
             return sortedRes
         },
         search: async (_,{topicIds,limit},{dataSources}) => {
-            const data = await dataSources.docAPI.searchDocs(topicIds,limit);
+            const data = await dataSources.searchEngineAPI.searchDocs(topicIds,limit);
             return data
         },
     },

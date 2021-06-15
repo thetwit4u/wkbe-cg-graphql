@@ -6,7 +6,6 @@ const app = express();
 
 const { makeExecutableSchema } = require('graphql-tools');
 
-const DocAPI = require('./datasources/doc')
 const SearchEngineAPI = require('./datasources/searchengine')
 
 const resolvers = require('./resolvers');
@@ -24,7 +23,7 @@ const schema = makeExecutableSchema({
   const server = new ApolloServer({
     schema: schema,
     dataSources: () => ({
-        docAPI: new DocAPI(),
+
         searchEngineAPI: new SearchEngineAPI(),
       }),
     cacheControl: {
