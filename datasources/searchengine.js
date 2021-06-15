@@ -21,6 +21,13 @@ class SearchEngineAPI extends RESTDataSource {
   }
 
 
+  async getTopics(ids) {
+    const searchStr = Array.isArray(ids) ?ids.join(','):ids
+    const data = await this.get(`topics?topics=${searchStr}`);
+    return data
+  }
+
+  
 }
 
 

@@ -5,7 +5,7 @@ const { readFileSync } = require('fs')
 const app = express();
 
 const { makeExecutableSchema } = require('graphql-tools');
-const TopicAPI = require('./datasources/topic')
+
 const DocAPI = require('./datasources/doc')
 const SearchEngineAPI = require('./datasources/searchengine')
 
@@ -24,7 +24,6 @@ const schema = makeExecutableSchema({
   const server = new ApolloServer({
     schema: schema,
     dataSources: () => ({
-        topicAPI: new TopicAPI(),
         docAPI: new DocAPI(),
         searchEngineAPI: new SearchEngineAPI(),
       }),

@@ -25,12 +25,12 @@ const resolvers =
         suggest: async (_,{topicIds},{dataSources}) => {
             const suggestData = await dataSources.searchEngineAPI.suggestTopic(topicIds);
             let res = null
-            if (suggestData) { res = await dataSources.topicAPI.getTopics(suggestData) }
+            if (suggestData) { res = await dataSources.searchEngineAPI.getTopics(suggestData) }
             return res[0]
         },
         
         topic: async (_,{id},{dataSources}) => {
-            const topicsData = await dataSources.topicAPI.getTopics(id);
+            const topicsData = await dataSources.searchEngineAPI.getTopics(id);
             return (topicsData.length > 0)? topicsData[0] : null
         },
         document: async (_,{id},{dataSources}) => {
@@ -38,10 +38,9 @@ const resolvers =
             return data
         },
         diagramInfo: async (_,{topicIds},{dataSources}) => {
-            // const diagramInfoData = await dataSources.topicAPI.diagramInfo(topicIds);
             const topicCom = getCombinations(topicIds);
             const alphaCom = getCombinations(["A","B","C","D","E","F"].slice(0,(topicIds.length )));
-            const resTopicsData = await dataSources.topicAPI.getTopics(topicIds)
+            const resTopicsData = await dataSources.searchEngineAPI.getTopics(topicIds)
             const resTopicsCounts = await dataSources.searchEngineAPI.summary(topicIds)
 
             const data = topicCom.map((combi,idx) => {
@@ -83,7 +82,7 @@ const resolvers =
     },
     Document: {
         topics: async ({topics},__,{dataSources}) => {
-            const topicsData = await dataSources.topicAPI.getTopics(topics);
+            const topicsData = await dataSources.searchEngineAPI.getTopics(topics);
             return topicsData
         }
     }
