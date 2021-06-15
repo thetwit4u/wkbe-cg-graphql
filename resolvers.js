@@ -1,3 +1,19 @@
+var _lodash = require('lodash');
+
+let res = [];
+
+function getCombinations(array) {
+    var result = [];   
+    var f = function(prefix=[], array) {
+        for (var i = 0; i < array.length; i++) {
+            result.push([...prefix,array[i]]);
+            f([...prefix,array[i]], array.slice(i + 1));     
+        }  
+    }   
+    f('', array);   
+    return result; 
+}
+
 
 const resolvers = 
 {
@@ -6,23 +22,33 @@ const resolvers =
             const topicsData = await dataSources.topicAPI.searchTopics(contains,limit);
             return topicsData
         },
-        diagramInfo:  (_,{topicIds},{dataSources}) => {
+        diagramInfo: async (_,{topicIds},{dataSources}) => {
             // const diagramInfoData = await dataSources.topicAPI.diagramInfo(topicIds);
-            const data = [{
-                "sets": ["1"],
-                "size": 10,
-                "label":"Minimumbezoldiging"
-            },
-            {
-                "sets": ["2"],
-                "size": 10,
-                "label":"Nettoloon"
-            },
-            {
-                "sets": ["1","2"],
-                "size": 5,
-                "label":"Minimumbezoldiging & Nettoloon"
-            }]
+            const topicCom = getCombinations(topicIds);
+            const alphaCom = getCombinations(["A","B","C","D","E","F"].slice(0,(topicIds.length )));
+            const resTopicsData = await dataSources.topicAPI.getTopics(topicIds)
+            const data = topicCom.map((combi,idx) => {
+                const count = 42
+                const topicLabels = []
+                combi.map((topicId) => {
+                    resTopicsData.map((topic) => {
+                        if (topic.id == topicId) {
+                            topicLabels.push(topic.label)
+                        }
+                    })
+                })
+                const hint = `${topicLabels.join(' + ')} (${count})`
+                const label = alphaCom[idx].join(' + ')
+                const sets = alphaCom[idx]
+                const set = 
+                    {
+                        sets: sets,
+                        size: 10,
+                        label: label,
+                        hint: hint 
+                    }
+                return set
+            })
             return data
         },
         search:  (_,{topicIds,limit},{dataSources}) => {

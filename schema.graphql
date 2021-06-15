@@ -25,6 +25,7 @@ type DiagramInfoSet @cacheControl(maxAge: 30){
  sets: [String]
  size: Int
  label: String
+ hint: String
 }
 
 type SearchResult @cacheControl(maxAge: 30){ 
