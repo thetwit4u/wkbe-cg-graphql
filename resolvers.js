@@ -33,6 +33,10 @@ const resolvers =
             const topicsData = await dataSources.topicAPI.getTopics(id);
             return (topicsData.length > 0)? topicsData[0] : null
         },
+        document: async (_,{id},{dataSources}) => {
+            const data = await dataSources.docAPI.getDoc(id);
+            return data
+        },
         diagramInfo: async (_,{topicIds},{dataSources}) => {
             // const diagramInfoData = await dataSources.topicAPI.diagramInfo(topicIds);
             const topicCom = getCombinations(topicIds);
@@ -77,7 +81,7 @@ const resolvers =
             return data
         },
     },
-    SearchResult: {
+    Document: {
         topics: async ({topics},__,{dataSources}) => {
             const topicsData = await dataSources.topicAPI.getTopics(topics);
             return topicsData
