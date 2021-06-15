@@ -61,7 +61,7 @@ const resolvers =
                 const set = 
                     {
                         sets: sets,
-                        size: count,
+                        size: count * 10,
                         label: label,
                         hint: hint 
                     }
