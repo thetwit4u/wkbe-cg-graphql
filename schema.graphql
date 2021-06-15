@@ -10,12 +10,18 @@ directive @cacheControl (
 
   
 type Query {
+    """ topics autocomplete """
     topics(contains: String!,limit:Int = 10): [Topic]
-    topic(id:ID): Topic
-    document(id:ID): Document
+    """ Request one topic with id """
     diagramInfo(topicIds:[String!]!): [DiagramInfoSet]
+    """ Do search for certain topics """
     search(topicIds:[String!]!,limit:Int = 50): [Document]
+    """ Propose a new topic based on the combined topic search results """
     suggest(topicIds:[String!]!): Topic
+    """ Request one topic with id """
+    topic(id:ID): Topic
+    """ Request one document with id """
+    document(id:ID): Document
 }
 
 type Topic  @cacheControl(maxAge: 30){
