@@ -10,7 +10,10 @@ class DocApi extends RESTDataSource {
     const data = await this.get(`/docs?topics=${topics.join(',')}`);
     return data.slice(0,limit)
   }
-
+  async getDoc(docId) {
+    const data = await this.get(`/docs?topics=${topics.join(',')}`);
+    return data.slice(0,limit)
+  }
 }
 
 

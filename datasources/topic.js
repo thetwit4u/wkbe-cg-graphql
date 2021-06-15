@@ -11,10 +11,12 @@ class TopicAPI extends RESTDataSource {
     return data
   }
   async getTopics(ids) {
-    const searchStr = ids.join('&id=')
+    const searchStr = Array.isArray(ids) ? ids.join('&id=') :ids
     const data = await this.get(`topics?id=${searchStr}`);
     return data
   }
+
+
   // async diagramInfo(topicIds) {
   //   const data = await this.get(`topics?label_like=${q}&_limit=${limit}&_sort=path&_order=asc`);
   //   return data

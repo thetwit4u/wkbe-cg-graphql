@@ -22,23 +22,24 @@ const resolvers =
             const topicsData = await dataSources.topicAPI.searchTopics(contains,limit);
             return topicsData
         },
+        suggest: async (_,{topicIds},{dataSources}) => {
+            const suggestData = await dataSources.searchEngineAPI.suggestTopic(topicIds);
+            let res = null
+            if (suggestData) { res = await dataSources.topicAPI.getTopics(suggestData) }
+            return res[0]
+        },
+        
+        topic: async (_,{id},{dataSources}) => {
+            const topicsData = await dataSources.topicAPI.getTopics(id);
+            return (topicsData.length > 0)? topicsData[0] : null
+        },
         diagramInfo: async (_,{topicIds},{dataSources}) => {
             // const diagramInfoData = await dataSources.topicAPI.diagramInfo(topicIds);
             const topicCom = getCombinations(topicIds);
             const alphaCom = getCombinations(["A","B","C","D","E","F"].slice(0,(topicIds.length )));
             const resTopicsData = await dataSources.topicAPI.getTopics(topicIds)
             const resTopicsCounts = await dataSources.searchEngineAPI.summary(topicIds)
-            let maxCount = 0
 
-            // get maxCount
-            topicCom.map((combi,idx) => {
-                resTopicsCounts.map((cntData) => {
-                    if (_lodash.isEqual(cntData.ids.sort(),combi.sort())) {
-                        maxCount = (cntData.count > maxCount)?cntData.count:maxCount 
-                    }
-                })
-            })
-            if (maxCount === 0) {maxCount = 1}
             const data = topicCom.map((combi,idx) => {
                 let count = 0
                 resTopicsCounts.map((cntData) => {
@@ -57,13 +58,10 @@ const resolvers =
                 const hint = `${topicLabels.join(' + ')} (${count})`
                 const label = alphaCom[idx].join(' + ')
                 const sets = alphaCom[idx]
-                let percent = Math.ceil((count / maxCount) * 100)
-                if ((percent < 10) && percent > 0) {percent=10}
-
                 const set = 
                     {
                         sets: sets,
-                        size: percent,
+                        size: count,
                         label: label,
                         hint: hint 
                     }

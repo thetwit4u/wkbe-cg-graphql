@@ -16,6 +16,11 @@ class SearchEngineAPI extends RESTDataSource {
     return data
   }
 
+  async suggestTopic(ids) {
+    const data = await this.get(`/docs/suggest?topics=${ids.join(',')}`);
+    return (data !== -1) ? data : null
+  }
+
 
 }
 
