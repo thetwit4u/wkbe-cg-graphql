@@ -1,17 +1,17 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 
-class DocAPI extends RESTDataSource {
+class DocApi extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = 'https://wkbe-cg-jsonserver.herokuapp.com/';
+    this.baseURL = 'http://searchengine.rickandmorty-team.com:8080/';
   }
 
-  async searchDocs(q,limit) {
-    const data = await this.get(`search?label_like=${q}&_limit=${limit}&_sort=path&_order=asc`);
-    return data
+  async searchDocs(topics,limit) {
+    const data = await this.get(`/docs?topics=${topics.join(',')}`);
+    return data.slice(0,limit)
   }
 
 }
 
 
-module.exports = DocAPI;
+module.exports = DocApi;

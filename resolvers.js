@@ -61,21 +61,8 @@ const resolvers =
                 return a.sets.length - b.sets.length;
             });
         },
-        search:  (_,{topicIds,limit},{dataSources}) => {
-           // const searchData = await dataSources.docAPI.searchDocs(topicIds,limit);
-            const data = [
-                {
-                  "id": "60c74659ed1b399303c87f86",
-                  "title": "ad amet non Lorem do occaecat",
-                  "topics": ["991","1177","170"]
-                },
-                {
-                    "id": "60c74659ed1b399303c8xxx",
-                    "title": "ad amet non Lorem do occaecat",
-                    "topics": ["1944","55","1584"]
-                  }
-
-                ]
+        search: async (_,{topicIds,limit},{dataSources}) => {
+            const data = await dataSources.docAPI.searchDocs(topicIds,limit);
             return data
         },
     },
