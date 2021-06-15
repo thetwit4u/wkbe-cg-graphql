@@ -6,10 +6,7 @@ class TopicAPI extends RESTDataSource {
     this.baseURL = 'https://wkbe-cg-jsonserver.herokuapp.com/';
   }
 
-  async searchTopics(q,limit) {
-    const data = await this.get(`topics?label_like=${q}&_limit=${limit}&_sort=path&_order=asc`);
-    return data
-  }
+
   async getTopics(ids) {
     const searchStr = Array.isArray(ids) ? ids.join('&id=') :ids
     const data = await this.get(`topics?id=${searchStr}`);

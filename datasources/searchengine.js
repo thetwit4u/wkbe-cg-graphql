@@ -12,7 +12,6 @@ class SearchEngineAPI extends RESTDataSource {
   }
   async searchTopics(q,limit) {
     const data = await this.get(`/topics?topic=${q}&limit=${limit}`);
-    console.log(`/topics?topic=${q}&limit=${limit}`)
     return data
   }
 
