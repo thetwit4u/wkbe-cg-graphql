@@ -57,7 +57,9 @@ const resolvers =
                     }
                 return set
             })
-            return data
+            return data.sort(function(a, b) {
+                return a.sets.length - b.sets.length;
+            });
         },
         search:  (_,{topicIds,limit},{dataSources}) => {
            // const searchData = await dataSources.docAPI.searchDocs(topicIds,limit);
