@@ -12,7 +12,7 @@ directive @cacheControl (
 type Query {
     """ topics autocomplete """
     topics(contains: String!,limit:Int = 10): [Topic]
-    """ Request one topic with id """
+    """ Request diagram information for a set of topics """
     diagramInfo(topicIds:[String!]!): [DiagramInfoSet]
     """ Do search for certain topics """
     search(topicIds:[String!]!,limit:Int = 50): [Document]
