@@ -27,7 +27,7 @@ class SearchEngineAPI extends RESTDataSource {
 
   async suggestTopic(ids) {
     const data = await this.get(`/docs/suggest?topics=${ids.join(',')}`);
-    return (data !== -1) ? data : null
+    return (data > 0) ? data : null
   }
 
 

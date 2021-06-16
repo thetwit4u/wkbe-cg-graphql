@@ -26,7 +26,7 @@ const resolvers =
             const suggestData = await dataSources.searchEngineAPI.suggestTopic(topicIds);
             let res = null
             if (suggestData) { res = await dataSources.searchEngineAPI.getTopics(suggestData) }
-            return res[0]
+            return Array.isArray(res)?res[0]:res
         },
         
         topic: async (_,{id},{dataSources}) => {
