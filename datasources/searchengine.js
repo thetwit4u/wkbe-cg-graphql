@@ -1,9 +1,10 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
+const SEARCHENGINE_URL = (process.env.SEARCHENGINE_URL || 'http://searchengine.rickandmorty-team.com:8080')
 
 class SearchEngineAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = 'http://searchengine.rickandmorty-team.com:8080/';
+    this.baseURL = `${SEARCHENGINE_URL}/`;
   }
 
   async searchDocs(topics,limit) {
@@ -14,7 +15,7 @@ class SearchEngineAPI extends RESTDataSource {
     const data = await this.get(`/docs/${docId}`);
     return Array.isArray(data)? data[0] :null
   }
-  
+
   async summary(topics) {
     const data = await this.get(`/docs/summary?topics=${topics.join(',')}`);
     return data
